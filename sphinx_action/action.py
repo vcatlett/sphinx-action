@@ -95,11 +95,15 @@ maximum 1 argument(s) allowed, 2 supplied.
     return annotations
 
 
-def build_docs(build_command, docs_directory):
+def build_docs(build_command, docs_directory, reqs_directory):
     if not build_command:
         raise ValueError("Build command may not be empty")
 
-    docs_requirements = os.path.join(docs_directory, "requirements.txt")
+    if reqs_directory is None:
+        docs_requirements = os.path.join(docs_directory, "requirements.txt")
+    else:
+        docs_requirements = os.path.join(reqs_directory, "requirements.txt")
+
     if os.path.exists(docs_requirements):
         subprocess.check_call(["pip", "install", "-r", docs_requirements])
 
@@ -140,7 +144,7 @@ def build_docs(build_command, docs_directory):
     return return_code, annotations
 
 
-def build_all_docs(github_env, docs_directories):
+def build_all_docs(github_env, docs_directories, reqs_directories=None):
     if len(docs_directories) == 0:
         raise ValueError("Please provide at least one docs directory to build")
 
@@ -152,7 +156,7 @@ def build_all_docs(github_env, docs_directories):
         print("Building docs in {}".format(docs_dir))
         print("====================================")
 
-        return_code, annotations = build_docs(github_env.build_command, docs_dir)
+        return_code, annotations = build_docs(github_env.build_command, docs_dir, reqs_directories)
         if return_code != 0:
             build_success = False
 
