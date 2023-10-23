@@ -40,6 +40,8 @@ jobs:
 build tools, etc) then place them in a requirements.txt file inside your docs
 folder.
 
+* You may spacify a location of the `requirements.txt` file with `reqs-folder`. If no `reqs-folder` is specified, it will default to the value of `docs-folder`.
+
 * If you have multiple sphinx documentation folders, please use multiple
   `uses` blocks.
 
