@@ -103,9 +103,12 @@ def build_docs(build_command, docs_directory):
     if os.path.exists(docs_requirements):
         subprocess.check_call(["pip", "install", "-r", docs_requirements])
 
-    log_file = os.path.join(tempfile.gettempdir(), "sphinx-log")
-    if os.path.exists(log_file):
-        os.unlink(log_file)
+    log_file_path = os.getcwd()
+    log_file_name = "sphinx-log"
+    log_file = os.path.join(log_file_path, log_file_name)
+    if not os.path.exists(log_file):
+        with open(log_file, 'w') as fp: 
+            pass
 
     sphinx_options = '--keep-going --no-color -w "{}"'.format(log_file)
     # If we're using make, pass the options as part of the SPHINXOPTS
