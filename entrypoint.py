@@ -19,4 +19,4 @@ if __name__ == "__main__":
     )
 
     # We build the doc folder passed in the inputs.
-    action.build_all_docs(github_env, [os.environ.get("INPUT_DOCS-FOLDER"), os.environ.get("INPUT_REQS-FOLDER")])
+    action.build_all_docs(github_env, [os.environ.get("INPUT_DOCS-FOLDER")])
